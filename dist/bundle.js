@@ -24815,38 +24815,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _square__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./square */ "./src/square.jsx");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
 var Board = function Board(_ref) {
-  var size = _ref.size;
-  var numSquares = Math.pow(size, 2);
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(new Array(numSquares).fill(null)),
-      _useState2 = _slicedToArray(_useState, 2),
-      squares = _useState2[0],
-      setSquares = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
-      _useState4 = _slicedToArray(_useState3, 2),
-      currPlayer = _useState4[0],
-      setCurrPlayer = _useState4[1];
+  var squares = _ref.squares,
+      _handleClick = _ref.handleClick;
 
   var renderSquare = function renderSquare(i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_square__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -24857,28 +24831,7 @@ var Board = function Board(_ref) {
     });
   };
 
-  var _handleClick = function _handleClick(i) {
-    if (calculateWinner(squares) || squares[i]) return;
-
-    var dupSquares = _toConsumableArray(squares);
-
-    dupSquares[i] = currPlayer;
-    setSquares(dupSquares);
-    setCurrPlayer(currPlayer === 'X' ? 'O' : 'X');
-  };
-
-  var winner = calculateWinner(squares);
-  var status;
-
-  if (winner) {
-    status = "".concat(winner, " wins!");
-  } else {
-    status = "Next player: ".concat(currPlayer);
-  }
-
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "status"
-  }, status), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "board-row"
   }, renderSquare(0), renderSquare(1), renderSquare(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "board-row"
@@ -24888,23 +24841,6 @@ var Board = function Board(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Board);
-
-function calculateWinner(squares) {
-  var lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-
-  for (var i = 0; i < lines.length; i++) {
-    var _lines$i = _slicedToArray(lines[i], 3),
-        a = _lines$i[0],
-        b = _lines$i[1],
-        c = _lines$i[2];
-
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-
-  return null;
-}
 
 /***/ }),
 
@@ -24944,22 +24880,120 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/board.jsx");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 var Game = function Game(props) {
+  var size = 3;
+  var numSquares = 9;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
+    squares: new Array(numSquares).fill(null)
+  }]),
+      _useState2 = _slicedToArray(_useState, 2),
+      history = _useState2[0],
+      setHistory = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
+      _useState4 = _slicedToArray(_useState3, 2),
+      currPlayer = _useState4[0],
+      setCurrPlayer = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      stepNumber = _useState6[0],
+      setStepNumber = _useState6[1];
+
+  var moves = history.map(function (step, i) {
+    var desc = i ? 'Go to move #' + i : 'Go to game start';
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: i
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick() {
+        return jumpTo(i);
+      }
+    }, desc));
+  });
+  console.log(history.length);
+  console.log(stepNumber);
+  var current = history[stepNumber];
+  var winner = calculateWinner(current.squares);
+  var status;
+
+  if (winner) {
+    status = "".concat(winner, " wins!");
+  } else {
+    status = "Next player: ".concat(currPlayer);
+  }
+
+  var _handleClick = function handleClick(i) {
+    var currHistory = history.slice(0, stepNumber + 1);
+    var current = currHistory[currHistory.length - 1];
+
+    var squares = _toConsumableArray(current.squares);
+
+    if (calculateWinner(squares) || squares[i]) return;
+    squares[i] = currPlayer;
+    setHistory(currHistory.concat([{
+      squares: squares
+    }]));
+    setCurrPlayer(currPlayer === 'X' ? 'O' : 'X');
+    setStepNumber(currHistory.length);
+  };
+
+  var jumpTo = function jumpTo(step) {
+    setStepNumber(step);
+    setCurrPlayer(step % 2 === 0 ? 'X' : 'O');
+  };
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "game"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "game-board"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    size: 3
+    squares: current.squares,
+    handleClick: function handleClick(i) {
+      return _handleClick(i);
+    }
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "game-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null)));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, status), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, moves)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
+
+function calculateWinner(squares) {
+  var lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+
+  for (var i = 0; i < lines.length; i++) {
+    var _lines$i = _slicedToArray(lines[i], 3),
+        a = _lines$i[0],
+        b = _lines$i[1],
+        c = _lines$i[2];
+
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+
+  return null;
+}
 
 /***/ }),
 
