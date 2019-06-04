@@ -24826,7 +24826,7 @@ var Board = function Board(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, grid.map(function (row, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "board-row",
-      key: i
+      key: "row-".concat(i)
     }, squares.slice(i * size, i * size + size).map(function (square, j) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_square__WEBPACK_IMPORTED_MODULE_1__["default"], {
         key: "".concat([i, j]),
@@ -24880,6 +24880,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/js/board.jsx");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./history */ "./src/js/history.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -25002,22 +25004,71 @@ var Game = function Game(props) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
 
-function calculateWinner(squares) {
-  var lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+var calculateWinner = function calculateWinner(squares) {
+  var size = Math.sqrt(squares.length);
 
-  for (var i = 0; i < lines.length; i++) {
-    var _lines$i = _slicedToArray(lines[i], 3),
-        a = _lines$i[0],
-        b = _lines$i[1],
-        c = _lines$i[2];
+  var getRow = function getRow(i) {
+    return squares.slice(i * size, i * size + size);
+  };
 
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+  var getCol = function getCol(i) {
+    var row = [];
+
+    for (var j = i; j < Math.pow(size, 2); j += size) {
+      row.push(squares[j]);
     }
+
+    return row;
+  };
+
+  var getDiag1 = function getDiag1() {
+    var row = [];
+
+    for (var i = 0; i < Math.pow(size, 2); i += size + 1) {
+      row.push(squares[i]);
+    }
+
+    return row;
+  };
+
+  var getDiag2 = function getDiag2() {
+    var row = [];
+
+    for (var i = size - 1; i < Math.pow(size, 2) - 1; i += size - 1) {
+      row.push(squares[i]);
+    }
+
+    return row;
+  };
+
+  var lines = [getDiag1(), getDiag2()];
+
+  for (var i = 0; i < size; i++) {
+    lines.push(getRow(i));
+    lines.push(getCol(i));
   }
 
+  var _loop = function _loop(_i2) {
+    var value = lines[_i2][0];
+
+    if (value && lines[_i2].slice(1).every(function (square) {
+      return square === value;
+    })) {
+      return {
+        v: value
+      };
+    }
+  };
+
+  for (var _i2 = 0; _i2 < lines.length; _i2++) {
+    var _ret = _loop(_i2);
+
+    if (_typeof(_ret) === "object") return _ret.v;
+  }
+
+  ;
   return null;
-}
+};
 
 /***/ }),
 

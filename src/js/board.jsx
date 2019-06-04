@@ -8,7 +8,10 @@ const Board = ({ size, squares, handleClick }) => {
     <div>
       {grid.map((row, i) => {
         return (
-          <div className="board-row" key={i}>
+          <div 
+            className="board-row" 
+            key={`row-${i}`}
+          >
             {squares.slice(i * size, i * size + size).map((square, j) => {
               return (
                 <Square
