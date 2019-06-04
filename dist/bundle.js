@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/entry.jsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/entry.jsx");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -24803,10 +24803,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/board.jsx":
-/*!***********************!*\
-  !*** ./src/board.jsx ***!
-  \***********************/
+/***/ "./src/js/board.jsx":
+/*!**************************!*\
+  !*** ./src/js/board.jsx ***!
+  \**************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24814,40 +24814,39 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _square__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./square */ "./src/square.jsx");
+/* harmony import */ var _square__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./square */ "./src/js/square.jsx");
 
 
 
 var Board = function Board(_ref) {
-  var squares = _ref.squares,
+  var size = _ref.size,
+      squares = _ref.squares,
       _handleClick = _ref.handleClick;
-
-  var renderSquare = function renderSquare(i) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_square__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      value: squares[i],
-      handleClick: function handleClick() {
-        return _handleClick(i);
-      }
-    });
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "board-row"
-  }, renderSquare(0), renderSquare(1), renderSquare(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "board-row"
-  }, renderSquare(3), renderSquare(4), renderSquare(5)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "board-row"
-  }, renderSquare(6), renderSquare(7), renderSquare(8)));
+  var grid = new Array(size).fill(null);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, grid.map(function (row, i) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "board-row",
+      key: i
+    }, squares.slice(i * size, i * size + size).map(function (square, j) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_square__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        key: "".concat([i, j]),
+        value: squares[i * size + j],
+        handleClick: function handleClick() {
+          return _handleClick(i * size + j);
+        }
+      });
+    }));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Board);
 
 /***/ }),
 
-/***/ "./src/entry.jsx":
-/*!***********************!*\
-  !*** ./src/entry.jsx ***!
-  \***********************/
+/***/ "./src/js/entry.jsx":
+/*!**************************!*\
+  !*** ./src/js/entry.jsx ***!
+  \**************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24857,7 +24856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game */ "./src/game.jsx");
+/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game */ "./src/js/game.jsx");
 
 
 
@@ -24868,10 +24867,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./src/game.jsx":
-/*!**********************!*\
-  !*** ./src/game.jsx ***!
-  \**********************/
+/***/ "./src/js/game.jsx":
+/*!*************************!*\
+  !*** ./src/js/game.jsx ***!
+  \*************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24879,7 +24878,8 @@ document.addEventListener('DOMContentLoaded', function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/board.jsx");
+/* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/js/board.jsx");
+/* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./history */ "./src/js/history.jsx");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -24899,39 +24899,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Game = function Game(props) {
-  var size = 3;
-  var numSquares = 9;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
-    squares: new Array(numSquares).fill(null)
-  }]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(3),
       _useState2 = _slicedToArray(_useState, 2),
-      history = _useState2[0],
-      setHistory = _useState2[1];
+      size = _useState2[0],
+      setSize = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
+    squares: new Array(Math.pow(size, 2)).fill(null)
+  }]),
       _useState4 = _slicedToArray(_useState3, 2),
-      currPlayer = _useState4[0],
-      setCurrPlayer = _useState4[1];
+      history = _useState4[0],
+      setHistory = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
       _useState6 = _slicedToArray(_useState5, 2),
-      stepNumber = _useState6[0],
-      setStepNumber = _useState6[1];
+      currPlayer = _useState6[0],
+      setCurrPlayer = _useState6[1];
 
-  var moves = history.map(function (step, i) {
-    var desc = i ? 'Go to move #' + i : 'Go to game start';
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: i
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      onClick: function onClick() {
-        return jumpTo(i);
-      }
-    }, desc));
-  });
-  console.log(history.length);
-  console.log(stepNumber);
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      stepNumber = _useState8[0],
+      setStepNumber = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState10 = _slicedToArray(_useState9, 2),
+      errors = _useState10[0],
+      setErrors = _useState10[1];
+
   var current = history[stepNumber];
   var winner = calculateWinner(current.squares);
   var status;
@@ -24957,9 +24953,25 @@ var Game = function Game(props) {
     setStepNumber(currHistory.length);
   };
 
-  var jumpTo = function jumpTo(step) {
-    setStepNumber(step);
-    setCurrPlayer(step % 2 === 0 ? 'X' : 'O');
+  var handleSubmit = function handleSubmit() {
+    var resetGame = function resetGame(size) {
+      setSize(size);
+      setHistory([{
+        squares: new Array(Math.pow(size, 2)).fill(null)
+      }]);
+      setCurrPlayer('X');
+      setStepNumber(0);
+      setErrors(null);
+    };
+
+    var input = document.getElementById('size').value;
+    var size = parseInt(input, 10);
+
+    if (size) {
+      resetGame(size);
+    } else {
+      setErrors('Input a valid number');
+    }
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -24967,13 +24979,25 @@ var Game = function Game(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "game-board"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    size: size,
     squares: current.squares,
     handleClick: function handleClick(i) {
       return _handleClick(i);
     }
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "game-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, status), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, moves)));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, status), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_history__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    history: history,
+    setStepNumber: setStepNumber,
+    setCurrPlayer: setCurrPlayer
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "game-size"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Set the number of rows:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    id: "size",
+    defaultValue: size
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: handleSubmit
+  }, "Set"), errors));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
@@ -24997,10 +25021,50 @@ function calculateWinner(squares) {
 
 /***/ }),
 
-/***/ "./src/square.jsx":
-/*!************************!*\
-  !*** ./src/square.jsx ***!
-  \************************/
+/***/ "./src/js/history.jsx":
+/*!****************************!*\
+  !*** ./src/js/history.jsx ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var History = function History(_ref) {
+  var history = _ref.history,
+      setStepNumber = _ref.setStepNumber,
+      setCurrPlayer = _ref.setCurrPlayer;
+
+  var jumpTo = function jumpTo(step) {
+    setStepNumber(step);
+    setCurrPlayer(step % 2 === 0 ? 'X' : 'O');
+  };
+
+  var moves = history.map(function (step, i) {
+    var desc = i ? 'Go to move #' + i : 'Go to game start';
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: i
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick() {
+        return jumpTo(i);
+      }
+    }, desc));
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, moves);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (History);
+
+/***/ }),
+
+/***/ "./src/js/square.jsx":
+/*!***************************!*\
+  !*** ./src/js/square.jsx ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
