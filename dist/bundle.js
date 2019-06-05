@@ -24843,166 +24843,14 @@ var Board = function Board(_ref) {
 
 /***/ }),
 
-/***/ "./src/js/entry.jsx":
-/*!**************************!*\
-  !*** ./src/js/entry.jsx ***!
-  \**************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/js/calculateWinner.js":
+/*!***********************************!*\
+  !*** ./src/js/calculateWinner.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game */ "./src/js/game.jsx");
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.getElementById('root');
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_game__WEBPACK_IMPORTED_MODULE_2__["default"], null), root);
-});
-
-/***/ }),
-
-/***/ "./src/js/game.jsx":
-/*!*************************!*\
-  !*** ./src/js/game.jsx ***!
-  \*************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/js/board.jsx");
-/* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./history */ "./src/js/history.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-var Game = function Game(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(3),
-      _useState2 = _slicedToArray(_useState, 2),
-      size = _useState2[0],
-      setSize = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
-    squares: new Array(Math.pow(size, 2)).fill(null)
-  }]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      history = _useState4[0],
-      setHistory = _useState4[1];
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
-      _useState6 = _slicedToArray(_useState5, 2),
-      currPlayer = _useState6[0],
-      setCurrPlayer = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState8 = _slicedToArray(_useState7, 2),
-      stepNumber = _useState8[0],
-      setStepNumber = _useState8[1];
-
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState10 = _slicedToArray(_useState9, 2),
-      errors = _useState10[0],
-      setErrors = _useState10[1];
-
-  var current = history[stepNumber];
-  var winner = calculateWinner(current.squares);
-  var status;
-
-  if (winner) {
-    status = "".concat(winner, " wins!");
-  } else {
-    status = "Next player: ".concat(currPlayer);
-  }
-
-  var _handleClick = function handleClick(i) {
-    var currHistory = history.slice(0, stepNumber + 1);
-    var current = currHistory[currHistory.length - 1];
-
-    var squares = _toConsumableArray(current.squares);
-
-    if (calculateWinner(squares) || squares[i]) return;
-    squares[i] = currPlayer;
-    setHistory(currHistory.concat([{
-      squares: squares
-    }]));
-    setCurrPlayer(currPlayer === 'X' ? 'O' : 'X');
-    setStepNumber(currHistory.length);
-  };
-
-  var handleSubmit = function handleSubmit() {
-    var resetGame = function resetGame(size) {
-      setSize(size);
-      setHistory([{
-        squares: new Array(Math.pow(size, 2)).fill(null)
-      }]);
-      setCurrPlayer('X');
-      setStepNumber(0);
-      setErrors(null);
-    };
-
-    var input = document.getElementById('size').value;
-    var size = parseInt(input, 10);
-
-    if (size) {
-      resetGame(size);
-    } else {
-      setErrors('Input a valid number');
-    }
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "game"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "game-board"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    size: size,
-    squares: current.squares,
-    handleClick: function handleClick(i) {
-      return _handleClick(i);
-    }
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "game-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, status), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_history__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    history: history,
-    setStepNumber: setStepNumber,
-    setCurrPlayer: setCurrPlayer
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "game-size"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Set the number of rows:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    id: "size",
-    defaultValue: size
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: handleSubmit
-  }, "Set"), errors));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Game);
 
 var calculateWinner = function calculateWinner(squares) {
   var size = Math.sqrt(squares.length);
@@ -25048,10 +24896,10 @@ var calculateWinner = function calculateWinner(squares) {
     lines.push(getCol(i));
   }
 
-  var _loop = function _loop(_i2) {
-    var value = lines[_i2][0];
+  var _loop = function _loop(_i) {
+    var value = lines[_i][0];
 
-    if (value && lines[_i2].slice(1).every(function (square) {
+    if (value && lines[_i].slice(1).every(function (square) {
       return square === value;
     })) {
       return {
@@ -25060,8 +24908,8 @@ var calculateWinner = function calculateWinner(squares) {
     }
   };
 
-  for (var _i2 = 0; _i2 < lines.length; _i2++) {
-    var _ret = _loop(_i2);
+  for (var _i = 0; _i < lines.length; _i++) {
+    var _ret = _loop(_i);
 
     if (_typeof(_ret) === "object") return _ret.v;
   }
@@ -25069,6 +24917,166 @@ var calculateWinner = function calculateWinner(squares) {
   ;
   return null;
 };
+
+module.exports = calculateWinner;
+
+/***/ }),
+
+/***/ "./src/js/entry.jsx":
+/*!**************************!*\
+  !*** ./src/js/entry.jsx ***!
+  \**************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game */ "./src/js/game.jsx");
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var root = document.getElementById('root');
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_game__WEBPACK_IMPORTED_MODULE_2__["default"], null), root);
+});
+
+/***/ }),
+
+/***/ "./src/js/game.jsx":
+/*!*************************!*\
+  !*** ./src/js/game.jsx ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board */ "./src/js/board.jsx");
+/* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./history */ "./src/js/history.jsx");
+/* harmony import */ var _status__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./status */ "./src/js/status.jsx");
+/* harmony import */ var _size__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./size */ "./src/js/size.jsx");
+/* harmony import */ var _calculateWinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./calculateWinner */ "./src/js/calculateWinner.js");
+/* harmony import */ var _calculateWinner__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_calculateWinner__WEBPACK_IMPORTED_MODULE_5__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var Game = function Game(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(3),
+      _useState2 = _slicedToArray(_useState, 2),
+      size = _useState2[0],
+      setSize = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
+    squares: new Array(Math.pow(size, 2)).fill(null)
+  }]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      history = _useState4[0],
+      setHistory = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('X'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      currPlayer = _useState6[0],
+      setCurrPlayer = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      stepNumber = _useState8[0],
+      setStepNumber = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState10 = _slicedToArray(_useState9, 2),
+      errors = _useState10[0],
+      setErrors = _useState10[1];
+
+  var _handleClick = function handleClick(i) {
+    var currHistory = history.slice(0, stepNumber + 1);
+    var current = currHistory[currHistory.length - 1];
+
+    var squares = _toConsumableArray(current.squares);
+
+    if (_calculateWinner__WEBPACK_IMPORTED_MODULE_5___default()(squares) || squares[i]) return;
+    squares[i] = currPlayer;
+    setHistory(currHistory.concat([{
+      squares: squares
+    }]));
+    setCurrPlayer(currPlayer === 'X' ? 'O' : 'X');
+    setStepNumber(currHistory.length);
+  };
+
+  var handleSubmit = function handleSubmit() {
+    var resetGame = function resetGame(size) {
+      setSize(size);
+      setHistory([{
+        squares: new Array(Math.pow(size, 2)).fill(null)
+      }]);
+      setCurrPlayer('X');
+      setStepNumber(0);
+      setErrors(null);
+    };
+
+    var input = document.getElementById('size').value;
+    var size = parseInt(input, 10);
+
+    if (size) {
+      resetGame(size);
+    } else {
+      setErrors('Input a valid number');
+    }
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "game"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "game-board"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    size: size,
+    squares: history[stepNumber].squares,
+    handleClick: function handleClick(i) {
+      return _handleClick(i);
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "game-info"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_status__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    squares: history[stepNumber].squares,
+    currPlayer: currPlayer
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_history__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    history: history,
+    setStepNumber: setStepNumber,
+    setCurrPlayer: setCurrPlayer
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_size__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    size: size,
+    handleSubmit: handleSubmit,
+    errors: errors
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Game);
 
 /***/ }),
 
@@ -25112,6 +25120,17 @@ var History = function History(_ref) {
 
 /***/ }),
 
+/***/ "./src/js/size.jsx":
+/*!*************************!*\
+  !*** ./src/js/size.jsx ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/jasonfu/Documents/Job Search/coding_challenges/tictactoe/src/js/size.jsx'");
+
+/***/ }),
+
 /***/ "./src/js/square.jsx":
 /*!***************************!*\
   !*** ./src/js/square.jsx ***!
@@ -25135,6 +25154,33 @@ var Square = function Square(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Square);
+
+/***/ }),
+
+/***/ "./src/js/status.jsx":
+/*!***************************!*\
+  !*** ./src/js/status.jsx ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _calculateWinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calculateWinner */ "./src/js/calculateWinner.js");
+/* harmony import */ var _calculateWinner__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_calculateWinner__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Status = function Status(_ref) {
+  var squares = _ref.squares,
+      currPlayer = _ref.currPlayer;
+  var winner = _calculateWinner__WEBPACK_IMPORTED_MODULE_1___default()(squares);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, winner ? "".concat(winner, " wins!") : "Next player: ".concat(currPlayer));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Status);
 
 /***/ })
 
