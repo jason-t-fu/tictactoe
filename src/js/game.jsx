@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Board from "./board";
 import History from "./history";
 import Status from "./status";
@@ -50,25 +50,27 @@ const Game = props => {
     }
   };
 
-  return(
+  return (
     <div className="game">
-      <div className="game-board">
-        <Board 
-          size={size}
-          squares={history[stepNumber].squares}
-          handleClick={(i) => handleClick(i)}
-        />
-      </div>
-      <div className="game-info">
-        <Status 
-          squares={history[stepNumber].squares}
-          currPlayer={currPlayer}
-        />
-        <History 
-          history={history} 
-          setStepNumber={setStepNumber} 
-          setCurrPlayer={setCurrPlayer}
-        />
+      <div className="board-info-container">
+        <div className="game-board">
+          <Board
+            size={size}
+            squares={history[stepNumber].squares}
+            handleClick={(i) => handleClick(i)}
+          />
+        </div>
+        <div className="game-info">
+          <Status
+            squares={history[stepNumber].squares}
+            currPlayer={currPlayer}
+          />
+          <History
+            history={history}
+            setStepNumber={setStepNumber}
+            setCurrPlayer={setCurrPlayer}
+          />
+        </div>
       </div>
       <Size
         size={size}

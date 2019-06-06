@@ -1,0 +1,25 @@
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.board-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
